@@ -1,4 +1,4 @@
-package main.java;
+package main.java.Model.data;
 
 import java.io.Serializable;
 
@@ -63,6 +63,14 @@ public class Contact implements Serializable{
         return id;
     }
 
+    public static int getId_count() {
+        return id_count;
+    }
+
+    public static void setId_count(int id_count) {
+        Contact.id_count = id_count;
+    }
+
     @Override
     public String toString() {
         return  "Индекс: " + id +
@@ -71,4 +79,6 @@ public class Contact implements Serializable{
                 ", Номер: '" + number + '\'' +
                 ", Группа: " + group + "\n";
     }
+
+
 }

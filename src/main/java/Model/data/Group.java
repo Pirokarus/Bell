@@ -1,4 +1,4 @@
-package main.java;
+package main.java.Model.data;
 
 import java.io.Serializable;
 
@@ -34,5 +34,13 @@ public class Group implements Serializable{
         return "Индекс: " + id +
                 "Название: " + name + '\'' +
                 "\n";
+    }
+
+    public static int getId_count() {
+        return id_count;
+    }
+
+    public static void setId_count(int id_count) {
+        Group.id_count = id_count;
     }
 }

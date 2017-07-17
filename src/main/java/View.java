@@ -1,16 +1,21 @@
 package main.java;
 
+import main.java.Model.Model;
+import main.java.Model.data.Contact;
+import main.java.Model.data.Group;
+
 import java.util.Scanner;
 import java.util.Set;
 
 public class View {
 
+    private Model model;
     private Set<Contact> contactSet;
     private Set<Group> groupSet;
 
     public View(){
 
-        Model model = new Model();
+        model = new Model();
 
         contactSet = model.getContactSet();
         groupSet = model.getGroupSet();
@@ -39,73 +44,82 @@ public class View {
             if(req == 1){
                 addContact();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 2){
                 redContact();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 3){
                 delContact();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 4){
                 addContactGroup();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 5){
                 delContactGroup();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 6){
                 System.out.println(contactSet);
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 7){
                 showGroupContact();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 8){
                 System.out.println(groupSet);
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 9){
                 addGroup();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 10){
                 delGroup();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 11){
                 redGroup();
                 req = 0;
+                saveModel();
                 continue;
             }
 
             if(req == 12){
-                model.setContactSet(contactSet);
-                model.setGroupSet(groupSet);
-                model.save();
+                saveModel();
                 break;
             }
         }
@@ -242,9 +256,9 @@ public class View {
         }
     }
 
-
-
-
-
-
+    public void saveModel(){
+        this.model.setContactSet(contactSet);
+        this.model.setGroupSet(groupSet);
+        this.model.save();
+    }
 }
