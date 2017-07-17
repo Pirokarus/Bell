@@ -3,6 +3,7 @@ package main.java;
 import main.java.Model.Model;
 import main.java.Model.data.Contact;
 import main.java.Model.data.Group;
+import main.java.exceptions.MyNotPhoneNumberException;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -126,34 +127,42 @@ public class View {
     }
 
     public void addContact(){
-        Scanner in = new Scanner(System.in);
-        System.out.print("Введите имя: ");
-        String name = in.nextLine();
-        System.out.print("Введите фамилию: ");
-        String lustName = in.nextLine();
-        System.out.print("Введите номер: ");
-        String number = in.nextLine();
-        contactSet.add(new Contact(name,lustName,number));
+        try {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Введите имя: ");
+            String name = in.nextLine();
+            System.out.print("Введите фамилию: ");
+            String lustName = in.nextLine();
+            System.out.print("Введите номер: ");
+            String number = in.nextLine();
+            contactSet.add(new Contact(name, lustName, number));
+        }catch (MyNotPhoneNumberException e){
+            System.out.println("Введите корректный номер");
+        }
     }
 
     public void redContact(){
-        Scanner in = new Scanner(System.in);
-        System.out.print("Выберите индекс контакта: ");
-        System.out.println(contactSet);
-        int id = in.nextInt();
-        System.out.print("Введите имя: ");
-        String name = in.nextLine();
-        System.out.print("Введите фамилию: ");
-        String lustName = in.nextLine();
-        System.out.print("Введите номер: ");
-        String number = in.nextLine();
+        try {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Выберите индекс контакта: ");
+            System.out.println(contactSet);
+            int id = in.nextInt();
+            System.out.print("Введите имя: ");
+            String name = in.nextLine();
+            System.out.print("Введите фамилию: ");
+            String lustName = in.nextLine();
+            System.out.print("Введите номер: ");
+            String number = in.nextLine();
 
-        for (Contact contact:contactSet){
-            if(id == contact.getId()){
-                contact.setFirstName(name);
-                contact.setLastName(lustName);
-                contact.setNumber(number);
+            for (Contact contact : contactSet) {
+                if (id == contact.getId()) {
+                    contact.setFirstName(name);
+                    contact.setLastName(lustName);
+                    contact.setNumber(number);
+                }
             }
+        }catch (MyNotPhoneNumberException e){
+            System.out.println("Введите корректный номер");
         }
     }
 

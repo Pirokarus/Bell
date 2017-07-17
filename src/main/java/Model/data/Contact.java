@@ -1,5 +1,7 @@
 package main.java.Model.data;
 
+import main.java.exceptions.MyNotPhoneNumberException;
+
 import java.io.Serializable;
 
 public class Contact implements Serializable{
@@ -16,15 +18,15 @@ public class Contact implements Serializable{
         ++id_count;
     }
 
-    public Contact(String firstName, String number) {
+    public Contact(String firstName, String number) throws MyNotPhoneNumberException {
         this.firstName = firstName;
-        this.number = number;
+        setNumber(number);
     }
 
-    public Contact(String firstName, String lastName, String number) {
+    public Contact(String firstName, String lastName, String number) throws MyNotPhoneNumberException {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.number = number;
+        setNumber(number);
     }
 
     public String getFirstName() {
@@ -47,7 +49,13 @@ public class Contact implements Serializable{
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(String number) throws MyNotPhoneNumberException {
+        char[] nimChar = number.toCharArray();
+        for (char c:nimChar){
+            if(!(c=='0'||c=='1'||c=='2'||c=='3'||c=='4'||c=='5'||c=='6'||c=='7'||c=='8'||c=='9'||c=='+')){
+                throw new MyNotPhoneNumberException();
+            }
+        }
         this.number = number;
     }
 
