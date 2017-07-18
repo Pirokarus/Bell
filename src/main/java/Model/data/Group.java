@@ -1,11 +1,11 @@
-package main.java.Model.data;
+package main.java.model.data;
 
 import java.io.Serializable;
 
-public class Group implements Serializable{
+public class Group implements Serializable{             //Класс для описания групп
 
     private static int id_count;
-    private int id;
+    private Integer id;
     private String name;
 
     {
@@ -25,14 +25,14 @@ public class Group implements Serializable{
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "Индекс: " + id +
-                "Название: " + name + '\'' +
+        return "Индекс: " + id.toString() +
+                " Название: " + name + '\'' +
                 "\n";
     }
 

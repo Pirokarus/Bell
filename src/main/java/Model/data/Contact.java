@@ -1,13 +1,13 @@
-package main.java.Model.data;
+package main.java.model.data;
 
 import main.java.exceptions.MyNotPhoneNumberException;
 
 import java.io.Serializable;
 
-public class Contact implements Serializable{
+public class Contact implements Serializable{           //Класс для описания контактов
 
     private static int id_count;
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String number;
@@ -67,7 +67,7 @@ public class Contact implements Serializable{
         this.group = group;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -81,7 +81,7 @@ public class Contact implements Serializable{
 
     @Override
     public String toString() {
-        return  "Индекс: " + id +
+        return  "Индекс: " + id.toString() +
                 ", Имя: '" + firstName + '\'' +
                 ", Фамилия: '" + lastName + '\'' +
                 ", Номер: '" + number + '\'' +

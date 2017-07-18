@@ -1,12 +1,10 @@
-package main.java.Model.data;
+package main.java.model.data;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
-public class Base implements Serializable{
+public class Base implements Serializable{          //Общий класс для сериализации, хранящий в себе помимо данных из модели static параметры классов
+
     private Set<Contact> contactSet;
     private Set<Group> groupSet;
     private int contactId = 0;
