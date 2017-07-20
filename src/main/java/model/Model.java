@@ -14,7 +14,17 @@ public class Model extends Observable {                                //Кла�
     private AbstractDAO dao;
     private List<Observer> observers = new ArrayList<>();
 
-    public Model(){
+    private static Model model;
+
+    static {
+        model = new Model();
+    }
+
+    public static Model getInstance(){
+        return model;
+    }
+
+    private Model(){
     }
 
     public void downloadData(){                     //Извличение данных
