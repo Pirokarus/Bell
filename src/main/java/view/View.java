@@ -5,28 +5,31 @@ import main.java.model.data.Contact;
 import main.java.model.data.Group;
 import main.java.exceptions.MyNotPhoneNumberException;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 import java.util.Set;
 
-public class View {
+public class View extends Observable implements Observer{
 
     private Model model;
 
-    public View(){                                  //Основная функция визуализации
+    public void update(Observable model, Object bool){          //Основная функция визуализации
 
-        model = new Model();                        //Инициализация модели
+        //model = new Model();                                    //Инициализация модели
+        this.model = (Model) model;
 
         Scanner in = new Scanner(System.in);
-        ViewEnum req = ViewEnum.o;                  //Инициализация перечиления команд
+        ViewEnum req = ViewEnum.o;                              //Инициализация перечиления команд
 
         while (true) {
-            if(req == ViewEnum.l){                  //Команда выхода из программы
+            if(req == ViewEnum.l){                              //Команда выхода из программы
                 saveModel();
                 break;
             }
             else {
                 switch (req) {
-                    case o:                         //Команда на вывод меню (команда по умолчанию)
+                    case o:                                     //Команда на вывод меню (команда по умолчанию)
 
                         System.out.println(" Выберите букву запроса");
                         System.out.println("a Создание контакта\n" +
@@ -44,73 +47,73 @@ public class View {
                         req = ViewEnum.valueOf(in.nextLine());
                         break;
 
-                    case a:                         //Команда добавления контакта
+                    case a:                                     //Команда добавления контакта
 
                         addContact();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case b:                         //Команда редактирования контакта
+                    case b:                                     //Команда редактирования контакта
 
                         redContact();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case c:                         //Команда удаления контакта
+                    case c:                                     //Команда удаления контакта
 
                         delContact();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case d:                         //Команда назначения группы контакту
+                    case d:                                     //Команда назначения группы контакту
 
                         addContactGroup();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case e:                         //Команда удаления группы у контакта
+                    case e:                                     //Команда удаления группы у контакта
 
                         delContactGroup();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case f:                         //Команда отображения всех контактов
+                    case f:                                     //Команда отображения всех контактов
 
-                        System.out.println(model.getContactSet());
+                        System.out.println(this.model.getContactSet());
                         req = ViewEnum.o;
                         continue;
 
-                    case g:                         //Команда отображения контактов определённой группы
+                    case g:                                     //Команда отображения контактов определённой группы
                         showGroupContact();
                         req = ViewEnum.o;
                         continue;
 
-                    case h:                         //Команда отображения всех групп
+                    case h:                                     //Команда отображения всех групп
 
-                        System.out.println(model.getGroupSet());
+                        System.out.println(this.model.getGroupSet());
                         req = ViewEnum.o;
                         continue;
 
-                    case i:                         //Команда добавления новой группы
+                    case i:                                     //Команда добавления новой группы
 
                         addGroup();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case j:                         //Команда удаления группы
+                    case j:                                     //Команда удаления группы
 
                         delGroup();
                         req = ViewEnum.o;
                         saveModel();
                         continue;
 
-                    case k:                         //Команда редактирования группы
+                    case k:                                     //Команда редактирования группы
 
                         redGroup();
                         req = ViewEnum.o;
@@ -121,10 +124,9 @@ public class View {
         }
     }
 
+    public void addContact(){                                   //Функция добавления контакта
 
-    public void addContact(){                       //Функция добавления контакта
-
-        try {                                       //Проверка кастомного исключения на проверку на номер телефона
+        try {                                                   //Проверка кастомного исключения на проверку на номер телефона
             Scanner in = new Scanner(System.in);
             System.out.print("Введите имя: ");
             String name = in.nextLine();
@@ -141,9 +143,9 @@ public class View {
         }
     }
 
-    public void redContact(){                       //Функция редактирования контакта
+    public void redContact(){                                   //Функция редактирования контакта
 
-        try {                                       //Проверка кастомного исключения на проверку на номер телефона
+        try {                                                   //Проверка кастомного исключения на проверку на номер телефона
 
             Set<Contact> contactSet = model.getContactSet();
             Scanner in = new Scanner(System.in);
@@ -172,7 +174,7 @@ public class View {
         }
     }
 
-    public void delContact(){                       //Функция удаления контакта
+    public void delContact(){                                   //Функция удаления контакта
 
         Set<Contact> contactSet = model.getContactSet();
         Scanner in = new Scanner(System.in);
@@ -194,7 +196,7 @@ public class View {
         model.setContactSet(contactSet);
     }
 
-    public void addContactGroup(){                  //Функция назначения группы контакту
+    public void addContactGroup(){                              //Функция назначения группы контакту
 
         Set<Contact> contactSet = model.getContactSet();
         Set<Group> groupSet = model.getGroupSet();
@@ -220,7 +222,7 @@ public class View {
         model.setContactSet(contactSet);
     }
 
-    public void delContactGroup(){                   //Функция удаления группы у контакта
+    public void delContactGroup(){                              //Функция удаления группы у контакта
 
         Set<Contact> contactSet = model.getContactSet();
         Scanner in = new Scanner(System.in);
@@ -237,7 +239,7 @@ public class View {
         model.setContactSet(contactSet);
     }
 
-    public void showGroupContact(){                 //Функция отображения всех контактов заданной группы
+    public void showGroupContact(){                             //Функция отображения всех контактов заданной группы
 
         Set<Contact> contactSet = model.getContactSet();
         Set<Group> groupSet = model.getGroupSet();
@@ -256,7 +258,7 @@ public class View {
         }
     }
 
-    public void addGroup(){                         //Функция создания новой группы
+    public void addGroup(){                                     //Функция создания новой группы
 
         Set<Group> groupSet = model.getGroupSet();
         Scanner in = new Scanner(System.in);
@@ -266,7 +268,7 @@ public class View {
         model.setGroupSet(groupSet);
     }
 
-    public void delGroup(){                         //Функция удаления группы
+    public void delGroup(){                                     //Функция удаления группы
 
         Set<Group> groupSet = model.getGroupSet();
         Set<Contact> contactSet = model.getContactSet();
@@ -292,7 +294,7 @@ public class View {
         model.setGroupSet(groupSet);
     }
 
-    public void redGroup(){                         //Функция редактирования группы
+    public void redGroup(){                                     //Функция редактирования группы
 
         Set<Group> groupSet = model.getGroupSet();
         Scanner in = new Scanner(System.in);
@@ -310,7 +312,7 @@ public class View {
         model.setGroupSet(groupSet);
     }
 
-    public void saveModel(){                        //Функция сохранения модели в файл
+    public void saveModel(){                                    //Функция сохранения модели в файл
 
         this.model.save();
     }

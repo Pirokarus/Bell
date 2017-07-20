@@ -1,6 +1,7 @@
 package main.java;
 
 
+import main.java.model.Model;
 import main.java.view.View;
 
 public class Main {
@@ -8,6 +9,9 @@ public class Main {
     public static void main(String[] args) {                //Основная main функция
 
         View view = new View();
+        Model model = new Model();
+        model.register(view);
+        model.downloadData();
         
     }
 }

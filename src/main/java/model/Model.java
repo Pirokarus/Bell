@@ -6,15 +6,18 @@ import main.java.model.data.Base;
 import main.java.model.data.Contact;
 import main.java.model.data.Group;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Model {                                //Класс - модель
+public class Model extends Observable {                                //Класс - модель
     private Set<Contact> contactSet;
     private Set<Group> groupSet;
     private AbstractDAO dao;
+    private List<Observer> observers = new ArrayList<>();
 
-    public Model(){                                 //Извличение данных происходит в конструкторе
+    public Model(){
+    }
+
+    public void downloadData(){                     //Извличение данных
 
         dao = new SimpleDAO();
         contactSet = dao.getBase().getContactSet();
@@ -29,6 +32,16 @@ public class Model {                                //Класс - модель
             groupSet = new HashSet<>();
             Contact.setId_count(0);
         }
+
+        for (Observer outlet:this.observers){
+            outlet.update(this,true);
+        }
+    }
+
+    public void register(Observer outlet) {
+
+        observers.add(outlet);
+
     }
 
     public void save(){                                 //Функция сохранения во внешнюю БД
