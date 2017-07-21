@@ -1,5 +1,6 @@
 package main.java.view;
 
+import main.java.controllers.DownloadController;
 import main.java.model.Model;
 import main.java.model.data.Contact;
 import main.java.model.data.Group;
@@ -12,12 +13,21 @@ import java.util.Set;
 
 public class View extends Observable implements Observer{
 
-    private Model model;
+    //private Model model;
+
+    private Set<Contact> contactSet;
+    private Set<Group> groupSet;
+    private DownloadController controller = new DownloadController();
+
+    public void start(){
+        controller.downloadModelData();
+    }
 
     public void update(Observable model, Object bool){          //Основная функция визуализации
 
         //model = new Model();                                    //Инициализация модели
-        this.model = (Model) model;
+        contactSet = Model.getInstance().getContactSet();
+        groupSet = Model.getInstance().getGroupSet();
 
         Scanner in = new Scanner(System.in);
         ViewEnum req = ViewEnum.o;                              //Инициализация перечиления команд
@@ -84,7 +94,7 @@ public class View extends Observable implements Observer{
 
                     case f:                                     //Команда отображения всех контактов
 
-                        System.out.println(this.model.getContactSet());
+                        System.out.println(contactSet);
                         req = ViewEnum.o;
                         continue;
 
@@ -95,7 +105,7 @@ public class View extends Observable implements Observer{
 
                     case h:                                     //Команда отображения всех групп
 
-                        System.out.println(this.model.getGroupSet());
+                        System.out.println(groupSet);
                         req = ViewEnum.o;
                         continue;
 
@@ -134,9 +144,8 @@ public class View extends Observable implements Observer{
             String lustName = in.nextLine();
             System.out.print("Введите номер: ");
             String number = in.nextLine();
-            Set<Contact> contactSet = model.getContactSet();
             contactSet.add(new Contact(name, lustName, number));
-            model.setContactSet(contactSet);
+            controller.updateModelContactSet(contactSet);
         }
         catch (MyNotPhoneNumberException e){
             System.out.println("Введите корректный номер");
@@ -147,10 +156,9 @@ public class View extends Observable implements Observer{
 
         try {                                                   //Проверка кастомного исключения на проверку на номер телефона
 
-            Set<Contact> contactSet = model.getContactSet();
             Scanner in = new Scanner(System.in);
             System.out.print("Выберите индекс контакта: ");
-            System.out.println(model.getContactSet());
+            System.out.println(contactSet);
             int id = in.nextInt();
             String next = in.nextLine();
             System.out.print("Введите имя: ");
@@ -167,7 +175,7 @@ public class View extends Observable implements Observer{
                     contact.setNumber(number);
                 }
             }
-            model.setContactSet(contactSet);
+            controller.updateModelContactSet(contactSet);
         }
         catch (MyNotPhoneNumberException e){
             System.out.println("Введите корректный номер");
@@ -176,7 +184,6 @@ public class View extends Observable implements Observer{
 
     public void delContact(){                                   //Функция удаления контакта
 
-        Set<Contact> contactSet = model.getContactSet();
         Scanner in = new Scanner(System.in);
         System.out.println(contactSet);
         System.out.print("Выберите индекс контакта: ");
@@ -193,13 +200,11 @@ public class View extends Observable implements Observer{
         if (rContact != null) {
             contactSet.remove(rContact);
         }
-        model.setContactSet(contactSet);
+        controller.updateModelContactSet(contactSet);
     }
 
     public void addContactGroup(){                              //Функция назначения группы контакту
 
-        Set<Contact> contactSet = model.getContactSet();
-        Set<Group> groupSet = model.getGroupSet();
         Scanner in = new Scanner(System.in);
         System.out.println(contactSet);
         System.out.print("Выберите индекс контакта: ");
@@ -219,12 +224,11 @@ public class View extends Observable implements Observer{
                 }
             }
         }
-        model.setContactSet(contactSet);
+        controller.updateModelContactSet(contactSet);
     }
 
     public void delContactGroup(){                              //Функция удаления группы у контакта
 
-        Set<Contact> contactSet = model.getContactSet();
         Scanner in = new Scanner(System.in);
         System.out.println(contactSet);
         System.out.print("Выберите индекс контакта: ");
@@ -236,13 +240,11 @@ public class View extends Observable implements Observer{
                 contact.setGroup(null);
             }
         }
-        model.setContactSet(contactSet);
+        controller.updateModelContactSet(contactSet);
     }
 
     public void showGroupContact(){                             //Функция отображения всех контактов заданной группы
 
-        Set<Contact> contactSet = model.getContactSet();
-        Set<Group> groupSet = model.getGroupSet();
         Scanner in = new Scanner(System.in);
         System.out.println(groupSet);
         System.out.print("Выберите индекс группы: ");
@@ -260,18 +262,15 @@ public class View extends Observable implements Observer{
 
     public void addGroup(){                                     //Функция создания новой группы
 
-        Set<Group> groupSet = model.getGroupSet();
         Scanner in = new Scanner(System.in);
         System.out.print("Введите название: ");
         String name = in.nextLine();
         groupSet.add(new Group(name));
-        model.setGroupSet(groupSet);
+        controller.updateModelGroupSet(groupSet);
     }
 
     public void delGroup(){                                     //Функция удаления группы
 
-        Set<Group> groupSet = model.getGroupSet();
-        Set<Contact> contactSet = model.getContactSet();
         Scanner in = new Scanner(System.in);
         System.out.println(groupSet);
         System.out.print("Выберите индекс группы: ");
@@ -290,13 +289,12 @@ public class View extends Observable implements Observer{
                 }
             }
         }
-        model.setContactSet(contactSet);
-        model.setGroupSet(groupSet);
+        controller.updateModelContactSet(contactSet);
+        controller.updateModelGroupSet(groupSet);
     }
 
     public void redGroup(){                                     //Функция редактирования группы
 
-        Set<Group> groupSet = model.getGroupSet();
         Scanner in = new Scanner(System.in);
         System.out.println(groupSet);
         System.out.print("Выберите индекс группы: ");
@@ -309,11 +307,11 @@ public class View extends Observable implements Observer{
                 group.setName(name);
             }
         }
-        model.setGroupSet(groupSet);
+        controller.updateModelGroupSet(groupSet);
     }
 
     public void saveModel(){                                    //Функция сохранения модели в файл
 
-        this.model.save();
+        controller.save();
     }
 }

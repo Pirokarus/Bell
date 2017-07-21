@@ -2,7 +2,7 @@ package main.java.model.data;
 
 import java.io.Serializable;
 
-public class Group implements Serializable{             //Класс для описания групп
+public class Group extends Entity implements Serializable{             //Класс для описания групп
 
     private static int id_count;
     private Integer id;

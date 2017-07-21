@@ -4,7 +4,7 @@ import main.java.exceptions.MyNotPhoneNumberException;
 
 import java.io.Serializable;
 
-public class Contact implements Serializable{           //Класс для описания контактов
+public class Contact extends Entity implements Serializable{           //Класс для описания контактов
 
     private static int id_count;
     private Integer id;

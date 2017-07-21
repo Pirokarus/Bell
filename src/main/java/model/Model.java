@@ -11,7 +11,6 @@ import java.util.*;
 public class Model extends Observable {                                //Класс - модель
     private Set<Contact> contactSet;
     private Set<Group> groupSet;
-    private AbstractDAO dao;
     private List<Observer> observers = new ArrayList<>();
 
     private static Model model;
@@ -27,26 +26,7 @@ public class Model extends Observable {                                //Кла�
     private Model(){
     }
 
-    public void downloadData(){                     //Извличение данных
 
-        dao = new SimpleDAO();
-        contactSet = dao.getBase().getContactSet();
-        groupSet = dao.getBase().getGroupSet();
-        Contact.setId_count(dao.getBase().getContactId());
-        Group.setId_count(dao.getBase().getGroupId());
-        if (contactSet == null){
-            contactSet = new HashSet<>();
-            Contact.setId_count(0);
-        }
-        if (groupSet == null){
-            groupSet = new HashSet<>();
-            Contact.setId_count(0);
-        }
-
-        for (Observer outlet:this.observers){
-            outlet.update(this,true);
-        }
-    }
 
     public void register(Observer outlet) {
 
@@ -54,21 +34,16 @@ public class Model extends Observable {                                //Кла�
 
     }
 
-    public void save(){                                 //Функция сохранения во внешнюю БД
-        Base base = new Base();
-        base.setContactSet(contactSet);
-        base.setGroupSet(groupSet);
-        base.setContactId(Contact.getId_count());
-        base.setGroupId(Group.getId_count());
-        dao.saveBase(base);
-    }
-
     public Set<Contact> getContactSet() {
         return contactSet;
     }
 
     public void setContactSet(Set<Contact> contactSet) {
+
         this.contactSet = contactSet;
+        for (Observer outlet:this.observers){
+            outlet.update(this,true);
+        }
     }
 
     public Set<Group> getGroupSet() {
@@ -77,6 +52,9 @@ public class Model extends Observable {                                //Кла�
 
     public void setGroupSet(Set<Group> groupSet) {
         this.groupSet = groupSet;
+        for (Observer outlet:this.observers){
+            outlet.update(this,true);
+        }
     }
 
 
