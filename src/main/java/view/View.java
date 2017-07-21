@@ -1,6 +1,7 @@
 package main.java.view;
 
 import main.java.controllers.DownloadController;
+import main.java.factory.EntityFactory;
 import main.java.model.Model;
 import main.java.model.data.Contact;
 import main.java.model.data.Group;
@@ -18,6 +19,7 @@ public class View extends Observable implements Observer{
     private Set<Contact> contactSet;
     private Set<Group> groupSet;
     private DownloadController controller = new DownloadController();
+    private EntityFactory entityFactory = new EntityFactory();
 
     public void start(){
         controller.downloadModelData();
@@ -144,7 +146,7 @@ public class View extends Observable implements Observer{
             String lustName = in.nextLine();
             System.out.print("Введите номер: ");
             String number = in.nextLine();
-            contactSet.add(new Contact(name, lustName, number));
+            contactSet.add((Contact) entityFactory.getEntity(name, lustName, number));
             controller.updateModelContactSet(contactSet);
         }
         catch (MyNotPhoneNumberException e){
@@ -265,7 +267,7 @@ public class View extends Observable implements Observer{
         Scanner in = new Scanner(System.in);
         System.out.print("Введите название: ");
         String name = in.nextLine();
-        groupSet.add(new Group(name));
+        groupSet.add((Group)entityFactory.getEntity(name));
         controller.updateModelGroupSet(groupSet);
     }
 
