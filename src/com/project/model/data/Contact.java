@@ -1,6 +1,6 @@
-package main.java.model.data;
+package com.project.model.data;
 
-import main.java.exceptions.MyNotPhoneNumberException;
+import com.project.exceptions.MyNotPhoneNumberException;
 
 import java.io.Serializable;
 

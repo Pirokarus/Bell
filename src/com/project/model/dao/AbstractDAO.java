@@ -1,6 +1,6 @@
-package main.java.model.dao;
+package com.project.model.dao;
 
-import main.java.model.data.Base;
+import com.project.model.data.Base;
 
 public interface AbstractDAO {          //Интерфейс с основными функциями всех будущих возможных DAO
     void saveBase(Base base);

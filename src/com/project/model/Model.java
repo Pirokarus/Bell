@@ -1,10 +1,7 @@
-package main.java.model;
+package com.project.model;
 
-import main.java.model.dao.AbstractDAO;
-import main.java.model.dao.SimpleDAO;
-import main.java.model.data.Base;
-import main.java.model.data.Contact;
-import main.java.model.data.Group;
+import com.project.model.data.Contact;
+import com.project.model.data.Group;
 
 import java.util.*;
 

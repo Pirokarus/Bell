@@ -1,13 +1,11 @@
-package main.java.controllers;
+package com.project.controllers;
 
-import main.java.model.Model;
-import main.java.model.Service;
-import main.java.model.data.Base;
-import main.java.model.data.Contact;
-import main.java.model.data.Group;
+import com.project.model.Model;
+import com.project.model.Service;
+import com.project.model.data.Base;
+import com.project.model.data.Contact;
+import com.project.model.data.Group;
 
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Set;
 
 public class DownloadController {

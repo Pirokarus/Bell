@@ -1,13 +1,12 @@
-package main.java;
+package com.project;
 
-
-import main.java.model.Model;
-import main.java.view.View;
-import main.java.view.View2;
+import com.project.model.Model;
+import com.project.view.View;
+import com.project.view.View2;
 
 public class Main {
 
-    public static void main(String[] args) {                //Основная main функция
+    public static void main(String[] args) {                //Основная com функция
 
         View view = new View();
         View2 view2 = new View2();

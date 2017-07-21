@@ -1,18 +1,18 @@
-package main.java.view;
+package com.project.view;
 
-import main.java.controllers.DownloadController;
-import main.java.factory.EntityFactory;
-import main.java.model.Model;
-import main.java.model.data.Contact;
-import main.java.model.data.Group;
-import main.java.exceptions.MyNotPhoneNumberException;
+import com.project.controllers.DownloadController;
+import com.project.factory.EntityFactory;
+import com.project.model.Model;
+import com.project.model.data.Contact;
+import com.project.model.data.Group;
+import com.project.exceptions.MyNotPhoneNumberException;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 import java.util.Set;
 
-public class View extends Observable implements Observer{
+public class View implements Observer{
 
     //private Model model;
 

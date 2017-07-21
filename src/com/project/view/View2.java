@@ -1,6 +1,6 @@
-package main.java.view;
+package com.project.view;
 
-import main.java.model.Model;
+import com.project.model.Model;
 
 import java.util.Observable;
 import java.util.Observer;

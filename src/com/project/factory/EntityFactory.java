@@ -1,9 +1,9 @@
-package main.java.factory;
+package com.project.factory;
 
-import main.java.exceptions.MyNotPhoneNumberException;
-import main.java.model.data.Contact;
-import main.java.model.data.Entity;
-import main.java.model.data.Group;
+import com.project.exceptions.MyNotPhoneNumberException;
+import com.project.model.data.Contact;
+import com.project.model.data.Entity;
+import com.project.model.data.Group;
 
 public class EntityFactory {
     public Entity getEntity(String name){
